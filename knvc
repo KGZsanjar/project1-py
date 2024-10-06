@@ -1,0 +1,68 @@
+# 1. Создаем класс Figure с атрибутом уровня класса
+from tkinter.font import names
+
+
+class Figure:
+    unit = 'cm'  # Единица измерения (сантиметры)
+
+    # 2. Конструктор класса Figure без параметров
+    def init(self):
+        pass
+
+    # 3. Нереализованный метод calculate_area (абстрактный)
+    def calculate_area(self):
+        raise NotImplementedError("Этот метод должен быть переопределен в дочернем классе")
+
+    # 4. Нереализованный метод info (абстрактный)
+    def info(self):
+        raise NotImplementedError("Этот метод должен быть переопределен в дочернем классе")
+
+
+# 5. Класс Square (Квадрат) наследуется от Figure
+class Square(Figure):
+    # 6. Приватный атрибут side_length
+    def init(self, side_length):
+        super().init()
+        self.__side_length = side_length  # Приватная длина стороны квадрата
+
+    # 7. Переопределение метода calculate_area для вычисления площади квадрата
+    def calculate_area(self):
+        return self.__side_length ** 2
+
+    # 8. Переопределение метода info для вывода информации о квадрате
+    def info(self):
+        area = self.calculate_area()
+        print(f"Square side length: {self.__side_length}{self.unit}, area: {area}{self.unit}")
+
+
+# 9. Класс Rectangle (Прямоугольник) наследуется от Figure
+class Rectangle(Figure):
+    # 10. Приватные атрибуты length и width
+    def init(self, length, width):
+        super().init()
+        self.__length = length  # Приватная длина
+        self.__width = width  # Приватная ширина
+
+    # 11. Переопределение метода calculate_area для вычисления площади прямоугольника
+    def calculate_area(self):
+        return self.length * self.width
+
+    # 12. Переопределение метода info для вывода информации о прямоугольнике
+    def info(self):
+        area = self.calculate_area()
+        print(f"Rectangle length: {self.length}{self.unit}, width: {self.width}{self.unit}, area: {area}{self.unit}")
+
+
+# 13. Создаем список объектов квадратов и прямоугольников
+if names == "main":
+    shapes = [
+        Square(5),  # Квадрат со стороной 5 см
+        Square(7),  # Квадрат со стороной 7 см
+        Rectangle(5, 8),  # Прямоугольник с длиной 5 см и шириной 8 см
+        Rectangle(10, 12),  # Прямоугольник с длиной 10 см и шириной 12 см
+        Rectangle(3, 6)  # Прямоугольник с длиной 3 см и шириной 6 см
+    ]
+
+    # 14. Вызов метода info для всех объектов
+    for shape in shapes:
+        shape.info()
